@@ -51,7 +51,7 @@ def build_vocab(path, iw=None, header=True, dim=None, sep=DEFAULT_SEP, build_all
                     _dim = int(line.rstrip().split()[1])
                     if dim:
                         assert dim == _dim, '{} != {}'.format(_dim, dim)
-                    analogy_matrix = np.zeros([len(iw), dim])
+                    analogy_matrix = np.zeros([len(iw), dim], dtype=np.float32)
                     first_line = False
                     continue
 
@@ -115,7 +115,7 @@ def read_vectors(path, chunk_size=None, dim=None, header=True, sep=DEFAULT_SEP, 
 
             assert len(vectors[-1]) == dim, line
             if chunk_size and chunk_size > 0 and len(vectors) == chunk_size:
-                yield np.array(vectors), words
+                yield np.array(vectors, dtype=np.float32), words
                 del vectors[:]
                 del words[:]
 
@@ -123,7 +123,7 @@ def read_vectors(path, chunk_size=None, dim=None, header=True, sep=DEFAULT_SEP, 
             first_line = False if first_line else False
 
     if len(vectors) > 0:
-        yield np.array(vectors), words
+        yield np.array(vectors, dtype=np.float32), words
 
 
 def unseen_questions(analogy, unseen_words):
@@ -226,8 +226,10 @@ def find_sim(analogy, analogy_matrix, matrix, wi, matrix_iw, result=None, oov_wo
 
     for analogy_type in tqdm(analogy.keys(), desc='find_sim: '):  # Calculate the accuracy for each relation type
         result.setdefault(analogy_type, defaultdict(list))
-        sims = analogy_matrix.dot(matrix.T)
-        sims = (sims + 1)/2  # Transform similarity scores to positive numbers (for mul evaluation)
+        sims = analogy_matrix.dot(matrix.T).astype(np.float32)
+        # Transform similarity scores to positive numbers (for mul evaluation)
+        sims += 1
+        sims /= 2
         for question in analogy[analogy_type]["questions"]:  # Loop for each analogy question
             word_a, word_b, word_c, word_d = question
             if not oov_words or not (word_a in oov_words or word_b in oov_words or word_c in oov_words): # 任何一个oov，则不计算
