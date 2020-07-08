@@ -3,6 +3,12 @@ This project provides 100+ Chinese Word Vectors (embeddings) trained with differ
 
 Moreover, we provide a Chinese analogical reasoning dataset **CA8** and an evaluation toolkit for users to evaluate the quality of their word vectors.
 
+在原项目基础上，增加对腾讯词向量等大型embedding评估支持
+```
+$ python ana_eval_dense_large.py --analogy ./testsets/CA8/morphological.txt --vector ./Tencent_AILab_ChineseEmbedding/Tencent_AILab_ChineseEmbedding.txt -c 1000000 -d 200 --header -s ' '
+```
+
+
 ## Reference
 Please cite the paper, if using these embeddings and CA8 dataset.
 
