@@ -1,12 +1,12 @@
+#在原项目基础上，增加对腾讯词向量等大型embedding评估支持
+```
+$ python ana_eval_dense_large.py --analogy ./testsets/CA8/morphological.txt --vector ./Tencent_AILab_ChineseEmbedding/Tencent_AILab_ChineseEmbedding.txt -c 1000000 -d 200 --header -s ' '
+```
+
 # Chinese Word Vectors 中文词向量
 This project provides 100+ Chinese Word Vectors (embeddings) trained with different **representations** (dense and sparse), **context features** (word, ngram, character, and more), and **corpora**. One can easily obtain pre-trained vectors with different properties and use them for downstream tasks. 
 
 Moreover, we provide a Chinese analogical reasoning dataset **CA8** and an evaluation toolkit for users to evaluate the quality of their word vectors.
-
-在原项目基础上，增加对腾讯词向量等大型embedding评估支持
-```
-$ python ana_eval_dense_large.py --analogy ./testsets/CA8/morphological.txt --vector ./Tencent_AILab_ChineseEmbedding/Tencent_AILab_ChineseEmbedding.txt -c 1000000 -d 200 --header -s ' '
-```
 
 
 ## Reference
