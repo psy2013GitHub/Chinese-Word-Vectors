@@ -1,4 +1,4 @@
-#在原项目基础上，增加对腾讯词向量等大型embedding评估支持
+# 在原项目基础上，增加对腾讯词向量等大型embedding评估支持
 ```
 $ python ana_eval_dense_large.py --analogy ./testsets/CA8/morphological.txt --vector ./Tencent_AILab_ChineseEmbedding/Tencent_AILab_ChineseEmbedding.txt -c 1000000 -d 200 --header -s ' '
 ```
